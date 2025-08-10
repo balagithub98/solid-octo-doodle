@@ -1,4 +1,4 @@
-name: Build and Deploy to Netlify
+name: Build and Deploy to Netlify (verbose)
 
 on:
   push:
@@ -8,38 +8,92 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    env:
+      # Verbose logging knobs
+      NPM_CONFIG_LOGLEVEL: verbose
+      NPM_CONFIG_FUND: false
+      NPM_CONFIG_AUDIT: false
+      FORCE_COLOR: 1
+      DEBUG: vite:*           # Vite debug namespaces
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Step 1: Node without cache to create lock file
+      - name: Print runner context
+        run: |
+          set -euxo pipefail
+          echo "Node requested: 20"
+          uname -a
+          lsb_release -a || true
+          printenv | sort
+
       - name: Use Node.js (bootstrap)
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Ensure lockfile
-        run: npm install --package-lock-only
+      - name: Ensure lockfile (create if missing)
+        run: |
+          set -euxo pipefail
+          if [ ! -f package-lock.json ]; then
+            npm install --package-lock-only
+          fi
+          node -v
+          npm -v
 
-      # Step 2: Re-run with cache now that lock file exists
-      - name: Use Node.js (with cache)
+      - name: Reconfigure Node.js with npm cache
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
           cache-dependency-path: "package-lock.json"
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Show npm config (sanitized)
+        run: |
+          set -euxo pipefail
+          npm config list -l | sed -E 's/(\/\/.*:_password=|\/\/.*:password=).*/\1***REDACTED***/'
 
-      - name: Build
-        run: npm run build
+      - name: Install dependencies (verbose)
+        run: |
+          set -euxo pipefail
+          npm ci --foreground-scripts --no-progress 2>&1 | tee ci-install.log
+          echo "npm cache dir: $(npm config get cache)"
+          ls -la "$(npm config get cache)" || true
+
+      - name: Build (Vite with debug)
+        run: |
+          set -euxo pipefail
+          npm run build -- --debug 2>&1 | tee vite-build.log
+          echo "Dist contents:"
+          ls -la dist
 
       - name: Install Netlify CLI
-        run: npm install -g netlify-cli  # CLI (Command-Line Interface: text-based control tool)
+        run: npm install -g netlify-cli
 
-      - name: Deploy to Netlify (production)
+      - name: Deploy to Netlify (production, debug)
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Token (Random credential string: used instead of password)
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}        # Site ID (Netlify unique site identifier)
-        run: netlify deploy --dir=dist --prod --message "CI deploy $GITHUB_SHA"
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}   # Token (Random credential string: used instead of password in automations)
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}         # Site ID (Netlify unique site identifier)
+        run: |
+          set -euxo pipefail
+          netlify --version
+          netlify deploy --dir=dist --prod --message "CI deploy $GITHUB_SHA" --debug 2>&1 | tee netlify-deploy.log
+
+      - name: Collect npm logs (if any)
+        if: always()
+        run: |
+          mkdir -p logs
+          cp -r /home/runner/.npm/_logs/* logs/ 2>/dev/null || true
+          cp ci-install.log logs/ 2>/dev/null || true
+          cp vite-build.log logs/ 2>/dev/null || true
+          cp netlify-deploy.log logs/ 2>/dev/null || true
+          echo "Collected logs:"
+          ls -la logs || true
+
+      - name: Upload logs artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: logs
+          if-no-files-found: warn
