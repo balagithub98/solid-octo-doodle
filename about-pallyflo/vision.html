@@ -2,18 +2,90 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Vision - PallyFlo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vision - PallyFlo</title>
   <link rel="stylesheet" href="/assets/main.css" />
-  <style>/* Same styles as above */</style>
 </head>
 <body>
-  <header><h1>Our Vision</h1></header>
-  <nav> <!-- Same navigation --> </nav>
-  <main>
-    <h2>Future Aspirations</h2>
-    <p>We aim to be recognized as one of the most reliable and prosperous commercial enterprises worldwide, building strong partnerships and promoting sustainable growth.</p>
-  </main>
-  <footer><p>&copy; 2025 PallyFlo. All rights reserved.</p></footer>
+  <!-- Site Nav -->
+  <header class="nav">
+    <div class="nav__inner container">
+      <div class="brand">
+        <div class="brand__logo">PF</div> PallyFlo
+      </div>
+      <button class="nav__toggle" aria-label="Toggle menu">☰</button>
+      <nav class="nav__links">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/about-pallyflo/" class="nav__link active">About</a>
+        <a href="/products/" class="nav__link">Products</a>
+        <a href="/services/" class="nav__link">Services</a>
+        <a href="/work-with-us/" class="nav__link">Work with Us</a>
+        <a href="/reach-us/" class="nav__link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Pagehead -->
+  <section class="pagehead">
+    <div class="container">
+      <h1>Our Vision</h1>
+      <div class="breadcrumbs">
+        <a href="/">Home</a> › <a href="/about-pallyflo/">About</a> › Vision
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="section container">
+    <p class="lead">
+      A world where agricultural trade is simple, transparent, and sustainable — empowering farmers and feeding communities everywhere.
+    </p>
+
+    <div class="grid grid--2 mt6">
+      <div class="card">
+        <h3>Connected Markets</h3>
+        <p>Build resilient supply networks that reduce waste, improve access, and shorten the path from field to table.</p>
+      </div>
+      <div class="card">
+        <h3>Sustainable Growth</h3>
+        <p>Champion climate-conscious choices and traceability that help protect resources and livelihoods.</p>
+      </div>
+      <div class="card">
+        <h3>Digital Simplicity</h3>
+        <p>Leverage tools and data to simplify cross-border commerce and provide predictable outcomes for partners.</p>
+      </div>
+      <div class="card">
+        <h3>Inclusive Prosperity</h3>
+        <p>Ensure value is shared fairly across the ecosystem — from smallholders to large buyers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div>
+        <h4>About PallyFlo</h4>
+        <p>We are an international leader in agricultural trade, connecting supply with demand sustainably.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="/products/">Products</a><br/>
+        <a href="/services/">Services</a><br/>
+        <a href="/work-with-us/">Careers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>Email: contact@pallyflo.com</p>
+        <p>Phone: +1 234 567 890</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.nav__toggle').addEventListener('click', () => {
+      document.querySelector('.nav__links').classList.toggle('is-open');
+    });
+  </script>
 </body>
 </html>

@@ -2,38 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Who We Are - PallyFlo</title>
   <link rel="stylesheet" href="/assets/main.css" />
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; line-height: 1.6; }
-    header { background: #006644; color: #fff; padding: 10px 20px; }
-    nav { display: flex; flex-wrap: wrap; background: #004d33; }
-    nav a { color: #fff; padding: 10px 15px; text-decoration: none; }
-    nav a:hover { background: #003322; }
-    main { padding: 20px; max-width: 900px; margin: auto; }
-    h2 { color: #006644; border-bottom: 2px solid #eee; padding-bottom: 5px; }
-    footer { background: #004d33; color: #fff; text-align: center; padding: 10px; margin-top: 30px; }
-    @media (max-width: 768px) { nav { flex-direction: column; } }
-  </style>
 </head>
 <body>
-  <header><h1>Who We Are</h1></header>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/about-pallyflo/">About PallyFlo</a>
-    <a href="/services/">Services</a>
-    <a href="/products/">Products</a>
-    <a href="/work-with-us/">Work With Us</a>
-    <a href="/reach-us/">Reach Us</a>
-    <a href="/careers/">Careers</a>
-    <a href="/more/">More</a>
-  </nav>
-  <main>
-    <h2>About Our Identity</h2>
-    <p>PallyFlo is a Canadian multinational agro-commodities exporter based in Toronto, Ontario. We export pulses, oil seeds, cereals, and specialty crops to global markets, sourcing from farmers, processors, and wholesalers.</p>
-    <p>Our expertise connects the most vital points in the supply chain while ensuring sustainability and ethical practices.</p>
-  </main>
-  <footer><p>&copy; 2025 PallyFlo. All rights reserved.</p></footer>
+  <header class="nav">
+    <div class="nav__inner container">
+      <div class="brand">
+        <div class="brand__logo">PF</div> PallyFlo
+      </div>
+      <button class="nav__toggle">☰</button>
+      <nav class="nav__links">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/about-pallyflo/" class="nav__link active">About</a>
+        <a href="/products/" class="nav__link">Products</a>
+        <a href="/services/" class="nav__link">Services</a>
+        <a href="/work-with-us/" class="nav__link">Work with Us</a>
+        <a href="/reach-us/" class="nav__link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="pagehead">
+    <div class="container">
+      <h1>Who We Are</h1>
+      <div class="breadcrumbs">
+        <a href="/">Home</a> › <a href="/about-pallyflo/">About</a> › Who We Are
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <p class="lead">
+      PallyFlo is built on a foundation of trust, integrity, and innovation. Our team combines decades of agricultural expertise with a vision for a connected global market.
+    </p>
+    <p>
+      We operate across continents, bridging the gap between farmers, processors, distributors, and customers. Our mission is to ensure that quality produce moves efficiently from source to destination, benefitting every stakeholder in the value chain.
+    </p>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div>
+        <h4>About PallyFlo</h4>
+        <p>We are an international leader in agricultural trade, connecting supply with demand sustainably.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="/products/">Products</a><br/>
+        <a href="/services/">Services</a><br/>
+        <a href="/work-with-us/">Careers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>Email: contact@pallyflo.com</p>
+        <p>Phone: +1 234 567 890</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.nav__toggle').addEventListener('click', () => {
+      document.querySelector('.nav__links').classList.toggle('is-open');
+    });
+  </script>
 </body>
 </html>

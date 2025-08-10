@@ -2,22 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Values - PallyFlo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Values - PallyFlo</title>
   <link rel="stylesheet" href="/assets/main.css" />
-  <style>/* Same styles as above */</style>
 </head>
 <body>
-  <header><h1>Our Values</h1></header>
-  <nav> <!-- Same navigation --> </nav>
-  <main>
-    <h2>Core Principles</h2>
-    <ul>
-      <li><strong>Global Responsibility:</strong> Benefiting society, respecting human dignity, supporting sustainable development.</li>
-      <li><strong>Integrity & Transparency:</strong> Honesty and openness in every business operation.</li>
-      <li><strong>Pursue Excellence:</strong> Consistently exceeding expectations and fostering innovation.</li>
-    </ul>
-  </main>
-  <footer><p>&copy; 2025 PallyFlo. All rights reserved.</p></footer>
+  <!-- Site Nav -->
+  <header class="nav">
+    <div class="nav__inner container">
+      <div class="brand">
+        <div class="brand__logo">PF</div> PallyFlo
+      </div>
+      <button class="nav__toggle" aria-label="Toggle menu">☰</button>
+      <nav class="nav__links">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/about-pallyflo/" class="nav__link active">About</a>
+        <a href="/products/" class="nav__link">Products</a>
+        <a href="/services/" class="nav__link">Services</a>
+        <a href="/work-with-us/" class="nav__link">Work with Us</a>
+        <a href="/reach-us/" class="nav__link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Pagehead -->
+  <section class="pagehead">
+    <div class="container">
+      <h1>Our Values</h1>
+      <div class="breadcrumbs">
+        <a href="/">Home</a> › <a href="/about-pallyflo/">About</a> › Values
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="section container">
+    <p class="lead">
+      Our values guide every decision — keeping us accountable to partners, communities, and the planet.
+    </p>
+
+    <div class="grid grid--3 mt6">
+      <div class="card">
+        <h3>Integrity</h3>
+        <p>We keep our word, operate transparently, and lead with ethics in every interaction.</p>
+      </div>
+      <div class="card">
+        <h3>Quality</h3>
+        <p>We set a high bar for consistency, safety, and traceability across the supply chain.</p>
+      </div>
+      <div class="card">
+        <h3>Partnership</h3>
+        <p>We grow together with suppliers and customers through trust and long-term collaboration.</p>
+      </div>
+      <div class="card">
+        <h3>Stewardship</h3>
+        <p>We pursue sustainable practices that respect resources and support resilient communities.</p>
+      </div>
+      <div class="card">
+        <h3>Innovation</h3>
+        <p>We adopt better tools and ideas to simplify trade and unlock opportunity for all.</p>
+      </div>
+      <div class="card">
+        <h3>Accountability</h3>
+        <p>We measure impact, own outcomes, and continuously improve how we work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div>
+        <h4>About PallyFlo</h4>
+        <p>We are an international leader in agricultural trade, connecting supply with demand sustainably.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="/products/">Products</a><br/>
+        <a href="/services/">Services</a><br/>
+        <a href="/work-with-us/">Careers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>Email: contact@pallyflo.com</p>
+        <p>Phone: +1 234 567 890</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.nav__toggle').addEventListener('click', () => {
+      document.querySelector('.nav__links').classList.toggle('is-open');
+    });
+  </script>
 </body>
 </html>

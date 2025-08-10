@@ -2,111 +2,94 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About PallyFlo</title>
   <link rel="stylesheet" href="/assets/main.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      line-height: 1.6;
-    }
-    header {
-      background: #006644;
-      color: #fff;
-      padding: 10px 20px;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.5em;
-    }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      background: #004d33;
-    }
-    nav a {
-      color: #fff;
-      padding: 10px 15px;
-      text-decoration: none;
-    }
-    nav a:hover {
-      background: #003322;
-    }
-    main {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-    h2 {
-      color: #006644;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 5px;
-    }
-    footer {
-      background: #004d33;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      margin-top: 30px;
-    }
-    /* Responsive menu */
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-      }
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <h1>About PallyFlo</h1>
+  <!-- Header -->
+  <header class="nav">
+    <div class="nav__inner container">
+      <div class="brand">
+        <div class="brand__logo">PF</div> PallyFlo
+      </div>
+      <button class="nav__toggle" aria-label="Toggle menu">☰</button>
+      <nav class="nav__links">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/about-pallyflo/" class="nav__link">About</a>
+        <a href="/products/" class="nav__link">Products</a>
+        <a href="/services/" class="nav__link">Services</a>
+        <a href="/work-with-us/" class="nav__link">Work with Us</a>
+        <a href="/reach-us/" class="nav__link">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <nav>
-    <a href="/">Home</a>
-    <a href="/about-pallyflo/">About PallyFlo</a>
-    <a href="/services/">Services</a>
-    <a href="/products/">Products</a>
-    <a href="/work-with-us/">Work With Us</a>
-    <a href="/reach-us/">Reach Us</a>
-    <a href="/careers/">Careers</a>
-    <a href="/more/">More</a>
-  </nav>
+  <!-- Page Head -->
+  <section class="pagehead">
+    <div class="container">
+      <h1>About PallyFlo</h1>
+      <div class="breadcrumbs">
+        <a href="/">Home</a> › About PallyFlo
+      </div>
+    </div>
+  </section>
 
-  <main>
-    <section>
-      <h2>Who We Are</h2>
-      <p>PallyFlo is a Canadian multinational agro-commodities exporter based in Toronto, Ontario, delivering pulses and seeds worldwide by sourcing from farmers, processors, and wholesalers.</p>
-    </section>
+  <!-- Content -->
+  <section class="section container">
+    <p class="lead">
+      PallyFlo is a global agricultural trading company dedicated to connecting farmers, suppliers, and customers across borders.
+    </p>
+    <div class="grid grid--3 mt6">
+      <a href="/about-pallyflo/who-we-are.html" class="card">
+        <h3>Who We Are</h3>
+        <p>Discover our origins, our people, and our commitment to excellence.</p>
+      </a>
+      <a href="/about-pallyflo/what-we-do.html" class="card">
+        <h3>What We Do</h3>
+        <p>Explore our operations and how we facilitate agricultural trade worldwide.</p>
+      </a>
+      <a href="/about-pallyflo/mission.html" class="card">
+        <h3>Mission</h3>
+        <p>Learn about our purpose and why we exist in the global food supply chain.</p>
+      </a>
+      <a href="/about-pallyflo/vision.html" class="card">
+        <h3>Vision</h3>
+        <p>See where we’re headed and the future we’re working toward.</p>
+      </a>
+      <a href="/about-pallyflo/values.html" class="card">
+        <h3>Values</h3>
+        <p>Understand the principles that guide our decisions and partnerships.</p>
+      </a>
+    </div>
+  </section>
 
-    <section>
-      <h2>What We Do</h2>
-      <p>We connect the core of the global supply chain sustainably and ethically, using deep market knowledge to manage supply chains and ensure resource viability.</p>
-    </section>
-
-    <section>
-      <h2>Our Mission</h2>
-      <p>To better the world by enabling international trade of goods and services through high-quality products, logistics, and services.</p>
-    </section>
-
-    <section>
-      <h2>Our Vision</h2>
-      <p>To be recognized as one of the most reliable and prosperous commercial enterprises globally.</p>
-    </section>
-
-    <section>
-      <h2>Our Values</h2>
-      <ul>
-        <li><strong>Global Responsibility:</strong> Making decisions that benefit society, respecting human dignity, and supporting sustainable development.</li>
-        <li><strong>Integrity and Transparency:</strong> Upholding honesty and openness across all business operations.</li>
-        <li><strong>Pursue Excellence:</strong> Continuously exceeding expectations and fostering innovation.</li>
-      </ul>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 PallyFlo. All rights reserved.</p>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div>
+        <h4>About PallyFlo</h4>
+        <p>We are an international leader in agricultural trade, connecting supply with demand sustainably.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="/products/">Products</a><br/>
+        <a href="/services/">Services</a><br/>
+        <a href="/work-with-us/">Careers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>Email: contact@pallyflo.com</p>
+        <p>Phone: +1 234 567 890</p>
+      </div>
+    </div>
   </footer>
+
+  <script>
+    // Mobile Nav Toggle
+    document.querySelector('.nav__toggle').addEventListener('click', () => {
+      document.querySelector('.nav__links').classList.toggle('is-open');
+    });
+  </script>
 </body>
 </html>

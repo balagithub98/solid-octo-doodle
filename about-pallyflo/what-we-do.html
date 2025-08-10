@@ -2,19 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>What We Do - PallyFlo</title>
   <link rel="stylesheet" href="/assets/main.css" />
-  <style>/* Same styles as above */</style>
 </head>
 <body>
-  <header><h1>What We Do</h1></header>
-  <nav> <!-- Same navigation as above --> </nav>
-  <main>
-    <h2>Our Business Activities</h2>
-    <p>We facilitate the global trade of agro-commodities by connecting producers and buyers through efficient logistics and sustainable sourcing practices.</p>
-    <p>Our knowledge of market trends and quality assurance helps us ensure that every shipment meets the highest standards.</p>
-  </main>
-  <footer><p>&copy; 2025 PallyFlo. All rights reserved.</p></footer>
+  <header class="nav">
+    <div class="nav__inner container">
+      <div class="brand">
+        <div class="brand__logo">PF</div> PallyFlo
+      </div>
+      <button class="nav__toggle">☰</button>
+      <nav class="nav__links">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/about-pallyflo/" class="nav__link active">About</a>
+        <a href="/products/" class="nav__link">Products</a>
+        <a href="/services/" class="nav__link">Services</a>
+        <a href="/work-with-us/" class="nav__link">Work with Us</a>
+        <a href="/reach-us/" class="nav__link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="pagehead">
+    <div class="container">
+      <h1>What We Do</h1>
+      <div class="breadcrumbs">
+        <a href="/">Home</a> › <a href="/about-pallyflo/">About</a> › What We Do
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <p class="lead">
+      We specialize in the sourcing, trading, and distribution of agricultural commodities, ensuring seamless connections between suppliers and buyers.
+    </p>
+    <ul>
+      <li>Identify high-quality produce from trusted sources</li>
+      <li>Facilitate transparent trade across borders</li>
+      <li>Maintain quality through stringent assurance processes</li>
+      <li>Support sustainable and ethical sourcing practices</li>
+    </ul>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div>
+        <h4>About PallyFlo</h4>
+        <p>We are an international leader in agricultural trade, connecting supply with demand sustainably.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="/products/">Products</a><br/>
+        <a href="/services/">Services</a><br/>
+        <a href="/work-with-us/">Careers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>Email: contact@pallyflo.com</p>
+        <p>Phone: +1 234 567 890</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.nav__toggle').addEventListener('click', () => {
+      document.querySelector('.nav__links').classList.toggle('is-open');
+    });
+  </script>
 </body>
 </html>
