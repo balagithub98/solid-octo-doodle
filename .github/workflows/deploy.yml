@@ -1,49 +1,116 @@
-name: Build and Deploy
+name: Build and Deploy to Netlify
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  workflow_dispatch: {}
 
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Runner & repo info
+        shell: bash
+        run: |
+          set -x
+          uname -a
+          echo "Workspace: $GITHUB_WORKSPACE"
+          ls -la
+          command -v node || true
+          command -v npm || true
+
+      # Bootstrap Node to create a lockfile if missing (avoids cache error)
+      - name: Use Node.js (bootstrap)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
 
-      - name: Install dependencies
+      - name: Ensure lockfile (no local build needed)
+        shell: bash
         run: |
           set -x
-          npm ci --verbose
-
-      - name: Build site
-        run: |
-          set -x
-          npm run build | tee build.log
-
-      - name: Verify build output
-        run: |
-          set -x
-          if [ ! -f dist/index.html ]; then
-            echo "❌ ERROR: index.html not found in dist/"
-            exit 1
+          if [ ! -f package-lock.json ]; then
+            npm install --package-lock-only 2>&1 | tee npm-lock.log
           fi
-          echo "✅ Found index.html"
-          echo "📄 Build output structure:"
-          ls -R dist
 
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v2.0.0
+      # Re-run with npm cache now that lockfile exists
+      - name: Use Node.js (with npm cache)
+        uses: actions/setup-node@v4
         with:
-          publish-dir: './dist'
-          production-deploy: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "package-lock.json"
+
+      - name: Versions
+        shell: bash
+        run: |
+          set -x
+          node -v
+          npm -v
+
+      - name: Install dependencies (verbose)
+        shell: bash
+        env:
+          NPM_CONFIG_LOGLEVEL: verbose
+        run: |
+          set -x
+          npm ci --foreground-scripts --timing 2>&1 | tee npm-install.log
+
+      - name: Show dependency tree (top level)
+        shell: bash
+        run: |
+          set -x
+          npm ls --depth=0 || true
+
+      - name: Build (Vite with debug + Node traces)
+        shell: bash
+        env:
+          DEBUG: vite:*
+          NODE_OPTIONS: --trace-deprecation --trace-warnings
+        run: |
+          set -x
+          npm run build 2>&1 | tee build.log
+
+      - name: Verify dist output
+        shell: bash
+        run: |
+          set -x
+          echo "dist contents:"
+          ls -la dist
+          test -f dist/index.html
+          test -f dist/about-pallyflo/index.html
+          test -f dist/contact.html
+
+      - name: Install Netlify CLI
+        shell: bash
+        run: |
+          set -x
+          npm install -g netlify-cli 2>&1 | tee netlify-install.log
+
+      - name: Deploy to Netlify (production, debug logs)
+        shell: bash
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_LOG_LEVEL: debug
+        run: |
+          set -x
+          netlify deploy --dir=dist --prod --message "CI deploy $GITHUB_SHA" 2>&1 | tee deploy.log
+
+      - name: Upload logs and dist snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-logs-and-dist
+          path: |
+            npm-lock.log
+            npm-install.log
+            build.log
+            netlify-install.log
+            deploy.log
+            ~/.npm/_logs/**
+            dist/**
+          retention-days: 7
