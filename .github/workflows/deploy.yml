@@ -12,34 +12,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js
+      # Step 1: Node without cache to create lock file
+      - name: Use Node.js (bootstrap)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Ensure lockfile
+        run: npm install --package-lock-only
+
+      # Step 2: Re-run with cache now that lock file exists
+      - name: Use Node.js (with cache)
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-
-      - name: Ensure lockfile (no local step needed)
-        run: |
-          if [ ! -f package-lock.json ]; then
-            npm install --package-lock-only
-          fi
+          cache-dependency-path: "package-lock.json"
 
       - name: Install dependencies
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
+        run: npm ci
 
       - name: Build
         run: npm run build
 
       - name: Install Netlify CLI
-        run: npm install -g netlify-cli
+        run: npm install -g netlify-cli  # CLI (Command-Line Interface: text-based control tool)
 
       - name: Deploy to Netlify (production)
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Token (Random credential string: used instead of password)
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}        # Site ID (Netlify unique site identifier)
         run: netlify deploy --dir=dist --prod --message "CI deploy $GITHUB_SHA"
