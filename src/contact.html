@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sample Site · Contact</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/src/style.css" />
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/src/index.html">🌐 SampleSite</a>
+    <nav class="nav">
+      <a href="/src/index.html"><img src="/icons/home.svg" alt="" /> Home</a>
+      <a href="/src/about.html"><img src="/icons/info.svg" alt="" /> About</a>
+      <a class="active" href="/src/contact.html"><img src="/icons/mail.svg" alt="" /> Contact</a>
+    </nav>
+    <button id="themeToggle" class="btn">Toggle Theme</button>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1>Contact</h1>
+      <form class="stack">
+        <label>Name <input type="text" placeholder="Your name" required></label>
+        <label>Email <input type="email" placeholder="you@example.com" required></label>
+        <label>Message <textarea rows="4" placeholder="Say hi…"></textarea></label>
+        <button class="btn btn-primary" type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">© <span id="year"></span> SampleSite</footer>
+</body>
+</html>
