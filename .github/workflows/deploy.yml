@@ -78,11 +78,18 @@ jobs:
         shell: bash
         run: |
           set -x
-          echo "dist contents:"
-          ls -la dist
-          test -f dist/index.html
-          test -f dist/about-pallyflo/index.html
-          test -f dist/contact.html
+          echo "dist folder tree:"
+          find dist -type d -print | sed 's/[^-][^\/]*\//--/g;s/--/ |/g'
+
+          echo "Checking for HTML files..."
+          HTML_FILES=$(find dist -type f -name "*.html")
+          if [ -z "$HTML_FILES" ]; then
+            echo "❌ Build failed: HTML files not found in dist"
+            exit 1
+          else
+            echo "✅ Build verification passed: HTML files found in dist"
+            echo "$HTML_FILES"
+          fi
 
       - name: Install Netlify CLI
         shell: bash
